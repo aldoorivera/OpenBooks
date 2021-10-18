@@ -1,0 +1,28 @@
+{
+  "dependencies": {
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "mysql2": "^2.3.2",
+    "nodemon": "^2.0.13",
+    "sequelize": "^6.7.0"
+  },
+  "name": "openbooks",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "dev": "nodemon src/index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aldoorivera/OpenBooks.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aldoorivera/OpenBooks/issues"
+  },
+  "homepage": "https://github.com/aldoorivera/OpenBooks#readme",
+  "description": ""
+}
