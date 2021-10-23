@@ -4,7 +4,7 @@ const router = Router();
 const marcadorController = require('../../controllers/marcadoresController');
 
 router.get('/', marcadorController.SelectAll);
-router.get('/', marcadorController.CheckBook);
+router.get('/buscar', marcadorController.CheckBook);
 router.post('/', marcadorController.Insert);
 router.delete('/', marcadorController.Delete);
 module.exports = router;

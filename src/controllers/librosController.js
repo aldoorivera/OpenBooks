@@ -1,4 +1,4 @@
-const Libro = require('');
+const Libro = require('../models/librosModel');
 const msj = require('../components/message');
 const { Op } = require("sequelize");
 const { validationResult } = require('express-validator');
