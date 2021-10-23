@@ -1,4 +1,4 @@
-const GeneroL = require('');
+const GeneroL = require('../models/generosModel');
 const msj = require('../components/message');
 const { Op } = require("sequelize");
 exports.SelectAll = async(req, res) => {

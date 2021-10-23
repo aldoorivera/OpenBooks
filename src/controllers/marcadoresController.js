@@ -1,4 +1,4 @@
-const Marcador = require('../models/mModel');
+const Marcador = require('../models/marcadoresModel');
 const msj = require('../components/message');
 const { Op } = require('sequelize');
 const { validationResult } = require('express-validator');
