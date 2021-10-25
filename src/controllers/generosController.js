@@ -1,4 +1,5 @@
 const GeneroL = require('../models/generosModel');
+const { validationResult } = require('express-validator');
 const msj = require('../components/message');
 const { Op } = require("sequelize");
 exports.SelectAll = async(req, res) => {
@@ -20,13 +21,28 @@ exports.Insert = (req, res) => {
             res.send("Faltan datos requeridos.");
         } else {
             try {
-                const nuevoGeneroL = GeneroL.create({
-                    generos_literarios: genero,
-                }).then((data) => {
-                    msj("Datos procesados correctamente.", 200, data, res);
-                }).catch((data) => {
-                    msj("Error al procesar los datos.", 200, data, res);
+                const searchGenre = await GeneroL.findOne({
+                    where: {
+                        [Op.or]: {
+                            generos_literarios = genero
+                        }
+                    }
                 });
+                if (!searchGenre) {
+                    const nuevoGeneroL = GeneroL.create({
+                        generos_literarios: genero,
+                    }).then((data) => {
+                        msj("Datos procesados correctamente.", 200, data, res);
+                    }).catch((data) => {
+                        msj("Error al procesar los datos.", 200, data, res);
+                    });
+                } else {
+                    mensaje = {
+                        msj: "Genero literario existente."
+                    }
+                    msj("Error al ingresar los datos.", 200, mensaje, res);
+                }
+
             } catch (error) {
                 msj("ERROR", 500, error, res);
             }

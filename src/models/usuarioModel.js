@@ -4,13 +4,12 @@ const bcrypt = require('bcrypt');
 const Usuarios = db.define(
     "usuarios", {
         idusuarios: {
-            type: sequelize.INTEGER,
+            type: sequelize.STRING(45),
             primaryKey: true,
-            autoIncrement: true,
             allowNull: false,
         },
         password: {
-            type: sequelize.STRING(45),
+            type: sequelize.STRING(250),
             allowNull: false,
         },
         nombe_usuario: {
@@ -40,4 +39,7 @@ const Usuarios = db.define(
         },
     },
 );
+Usuarios.prototype.comparePassword = (pass, com) => {
+    return bcrypt.compareSync(pass, com);
+}
 module.exports = Usuario;
