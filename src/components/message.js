@@ -5,6 +5,6 @@ const message = (msj, estado, data, res) => {
     };
     res.setHeader("Content-Type", "application/json");
     res.statusCode = estado;
-    res.json(mensaje);
+    res.json(messages);
 };
 module.exports = message;

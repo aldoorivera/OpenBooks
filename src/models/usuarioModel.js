@@ -2,7 +2,7 @@ const sequelize = require('sequelize');
 const db = require('../configs/db');
 const bcrypt = require('bcrypt');
 const Usuarios = db.define(
-    "usuarios", {
+    "usuario", {
         idusuarios: {
             type: sequelize.STRING(45),
             primaryKey: true,
@@ -23,18 +23,19 @@ const Usuarios = db.define(
         email: {
             type: sequelize.STRING(250),
             allowNull: false,
+            unique: true
         },
     }, {
         tableName: "usuarios",
         timestamps: false,
-        hook: {
-            beforeCreate(usuarios) {
-                const hash = bcrypt.hashSync(usuarios.password, 10);
-                usuarios.password = hash;
+        hooks: {
+            beforeCreate(usuario) {
+                const hash = bcrypt.hashSync(usuario.password, 10);
+                usuario.password = hash;
             },
-            beforeUpdate(usuarios) {
-                const hash = bcrypt.hashSync(usuarios.password, 10);
-                usuarios.password = hash;
+            beforeUpdate(usuario) {
+                const hash = bcrypt.hashSync(usuario.password, 10);
+                usuario.password = hash;
             }
         },
     },

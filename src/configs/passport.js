@@ -24,4 +24,4 @@ passport.use(new strategyJWT(options, async(payload, done) => {
         return done(null, false);
     });
 }));
-exports.validarAutenticado = passport.authenticate('jwt', { session: false, failureRedirect: '/OpenBooks/usuario/error' });
+exports.validarAutenticado = passport.authenticate('jwt', { session: false, failureRedirect: '/OpenBooks/error' });

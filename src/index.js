@@ -10,7 +10,7 @@ app.listen(app.get('port'), () => {
     console.log('Servidor iniciado en el puerto ' + app.get('port'));
 });
 
-//app.use('/OpenBooks', require('./routes'));
+app.use('/OpenBooks/', require('./routes/passport'));
 app.use('/OpenBooks/libro', require('./routes/libros'));
 app.use('/OpenBooks/autor', require('./routes/autores'));
 app.use('/OpenBooks/genero', require('./routes/generosLiterarios'));

@@ -6,8 +6,9 @@ const controladorUsuarios = require('../../controllers/controladorusuarios');
 
 router.get('/listar', passportController.validarAutenticado, controladorUsuarios.listar);
 router.post('/guardar',
+    body('idusuarios').isLength({ min: 4 }).withMessage('Longitud minima de caracteres es de 8.'),
     body('password').isLength({ min: 8 }).withMessage('Longitud minima de caracteres es de 8.')
-    .matches(/^(?=.\d)(?=.*[a-z])(?=.*[A-Z])[A-zA-Z\d@$.!%*#?&]/),
+    .matches(/^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{6,})\S/),
     body('nombre_usuario').isLength({ min: 3 }).withMessage('Longitud minima de caracteres es de 3.'),
     body('apellido_usuario').isLength({ min: 3 }).withMessage('Longitud minima de caracteres es de 3.'),
     body('email').isEmail().withMessage('Debe de tener un formato de correo electronico'),

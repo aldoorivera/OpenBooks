@@ -1,6 +1,6 @@
 const sequelize = require('sequelize');
 const db = new sequelize(
-    'DB_Name',
+    'openbooks',
     'root',
     'password', {
         host: 'localhost',

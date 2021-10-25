@@ -12,32 +12,27 @@ exports.Login = async(req, res, next) => {
         const { usuario, password } = req.body;
         const BuscarUsuario = await ModeloUsuario.findOne({
             where: {
-                [Op.and]: [{
-                    [Op.or]: [
-                        { email: usuario },
-                        { idusuario: usuario }
-                    ]
-                }],
+                idusuarios: usuario
             }
         });
         if (!BuscarUsuario) {
-            msj("El Usuario no existe o se encuentra inactivo", 200, [], res);
+            msj("El Usuario no existe o la contraseña no coincide.", 200, [], res);
         } else {
-            if (!BuscarUsuario.verificarPassword(password, BuscarUsuario.password)) {
+            if (!BuscarUsuario.comparePassword(password, BuscarUsuario.password)) {
                 msj("El Usuario no existe o contraseña invalida", 200, [], res);
             } else {
                 const usr = {
-                    email: BuscarUsuario.correo,
-                    idusuario: BuscarUsuario.idusuario,
-                    nombre_usuario: BuscarUsuario.nombre_usuario,
+                    email: BuscarUsuario.email,
+                    idusuarios: BuscarUsuario.idusuarios,
+                    nombe_usuario: BuscarUsuario.nombe_usuario,
                     apellido_usuario: BuscarUsuario.apellido_usuario
                 };
-                const token = passport.getToken({ idusuario: BuscarUsuario.idusuario });
+                const token = passport.getToken({ idusuarios: BuscarUsuario.idusuarios });
                 const data = {
                     token: token,
-                    Usuario: usr
+                    usuario: usr
                 };
-                msj("Bienvenido, " + usr.nombre_usuario + " " + usr.apellido_usuario, 200, data, res);
+                msj("Bienvenido, " + usr.nombe_usuario + " " + usr.apellido_usuario, 200, data, res);
             }
         }
     }

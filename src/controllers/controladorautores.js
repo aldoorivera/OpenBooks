@@ -24,6 +24,7 @@ exports.Buscar = async(req, res) => {
                     },
                 }
             });
+            msj("Registro almacenado correctamente", 200, data, res);
         } catch (error) {
             msj("ERROR", 500, error, res);
         }
@@ -37,7 +38,7 @@ exports.GuardarAutores = (req, res) => {
     } else {
         const { nombre_autor } = req.body;
         console.log(nombre_autor);
-        if (!nombre_autor ) {
+        if (!nombre_autor) {
             res.send("Debe enviar los datos completos.");
         } else {
             try {
@@ -113,7 +114,7 @@ exports.Actualizar = async(req, res) => {
                     if (!nombre_autor) {
                         msj("Datos incompletos.", 200, data, res);
                     } else {
-                        buscarautores.nombre_autor=nombre_autor;
+                        buscarautores.nombre_autor = nombre_autor;
                         await buscarautores.save();
                         msj("Datos procesados correctamente.", 200, data, res);
                     }
