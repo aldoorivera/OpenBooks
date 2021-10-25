@@ -12,5 +12,8 @@ app.listen(app.get('port'), () => {
 
 app.use('/OpenBooks', require('./routes'));
 app.use('/OpenBooks/libro', require('./routes/libros'));
+app.use('/OpenBooks/autor', require('./routes/autores'));
 app.use('/OpenBooks/genero', require('./routes/generosLiterarios'));
+app.use('/OpenBooks/usuario', require('./routes/usuarios'));
 app.use('/OpenBooks/marcador', require('./routes/marcadores'));
+app.use('/OpenBooks/generosLibro', require('./routes/librocategorias'));
