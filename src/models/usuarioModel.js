@@ -42,4 +42,4 @@ const Usuarios = db.define(
 Usuarios.prototype.comparePassword = (pass, com) => {
     return bcrypt.compareSync(pass, com);
 }
-module.exports = Usuario;
+module.exports = Usuarios;

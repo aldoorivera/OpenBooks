@@ -1,8 +1,7 @@
 const sequelize = require('sequelize');
-const db = require('../config/db');
-const libros = db.define(
-    "generos_literarios",
-    {
+const db = require('../configs/db');
+const generos_literarios = db.define(
+    "generos_literarios", {
         idgl: {
             type: sequelize.INTEGER,
             primaryKey: true,
@@ -13,8 +12,7 @@ const libros = db.define(
             type: sequelize.STRING(45),
             allowNull: false,
         },
-    },
-    {
+    }, {
         tableName: "generos_literarios",
         timestamps: false,
     }

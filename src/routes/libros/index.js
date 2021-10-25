@@ -8,7 +8,7 @@ router.get('/listar', passportController.validarAutenticado, libroController.Sel
 router.post('/buscar', passportController.validarAutenticado, libroController.Search);
 router.post('/guardar', passportController.validarAutenticado,
     body('nombre_libro').isLength({ min: 2 }).withMessage('Longitud minima de caracteres: 2.'),
-    body('num_paginas').isNumeric.withMessage('Campo numerico.'),
+    body('num_paginas').isNumeric().withMessage('Campo numerico.'),
     libroController.Insert);
 router.delete('/eliminar', passportController.validarAutenticado, libroController.Delete);
 router.put('/actualizar', passportController.validarAutenticado, libroController.Update);

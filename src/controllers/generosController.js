@@ -10,7 +10,7 @@ exports.SelectAll = async(req, res) => {
     }
 
 };
-exports.Insert = (req, res) => {
+exports.Insert = async(req, res) => {
     const validacion = validationResult(req);
     if (!validacion.isEmpty()) {
         msj("Datos erroneos.", 200, validacion.array(), res);
@@ -23,9 +23,7 @@ exports.Insert = (req, res) => {
             try {
                 const searchGenre = await GeneroL.findOne({
                     where: {
-                        [Op.or]: {
-                            generos_literarios = genero
-                        }
+                        generos_literarios: genero
                     }
                 });
                 if (!searchGenre) {
