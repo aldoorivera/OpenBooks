@@ -11,6 +11,9 @@ const libros = db.define(
         nombre_libro: {
             type: sequelize.STRING(45),
             allowNull: false,
+            validate: {
+
+            }
         },
         num_paginas: {
             type: sequelize.INTEGER,
