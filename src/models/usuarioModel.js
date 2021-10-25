@@ -21,7 +21,7 @@ const Usuarios = db.define(
             allowNull: false,
         },
         email: {
-            type: sequelize.STRING(45),
+            type: sequelize.STRING(250),
             allowNull: false,
         },
     }, {

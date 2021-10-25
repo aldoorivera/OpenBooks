@@ -1,8 +1,7 @@
 const sequelize = require('sequelize');
 const db = require('../config/db');
 const libros = db.define(
-    "libros",
-    {
+    "libros", {
         idlibros: {
             type: sequelize.INTEGER,
             primaryKey: true,
@@ -18,27 +17,26 @@ const libros = db.define(
             allowNull: false,
         },
         descripcion: {
-            type: sequelize.STRING(45),
-            allowNull: false,
-        },
-        libro:{
-            type: sequelize.LONGBLOD,
-            allowNull: false,
-        },
-        img_libro:{
-            type: sequelize.BLOB,
+            type: sequelize.STRING(500),
             allowNull: true,
         },
-        id_autores:{
+        libro: {
+            type: sequelize.BLOB,
+            allowNull: false,
+        },
+        img_libro: {
+            type: sequelize.BLOB,
+            allowNull: false,
+        },
+        id_autores: {
             type: sequelize.INTEGER,
             allowNull: false,
         },
-        editorial:{
+        editorial: {
             type: sequelize.STRING(45),
-            allowNull: false,
+            allowNull: true,
         },
-    },
-    {
+    }, {
         tableName: "libros",
         timestamps: false,
     }
