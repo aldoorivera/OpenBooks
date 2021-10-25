@@ -7,10 +7,10 @@ app.set(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.set('json space', 2);
 app.listen(app.get('port'), () => {
-    console.log('Servidor iniciado en el puerto ' + app.get.port);
+    console.log('Servidor iniciado en el puerto ' + app.get('port'));
 });
 
-app.use('/OpenBooks', require('./routes'));
+//app.use('/OpenBooks', require('./routes'));
 app.use('/OpenBooks/libro', require('./routes/libros'));
 app.use('/OpenBooks/autor', require('./routes/autores'));
 app.use('/OpenBooks/genero', require('./routes/generosLiterarios'));
