@@ -1,10 +1,11 @@
-const Libro = require('../models/autoresModel');
+const Autores = require('../models/autoresModel');
 const msj = require('../components/message');
 const { Op } = require("sequelize");
 const { validationResult } = require('express-validator');
 exports.Listar = async(req, res) => {
     try {
-        const Autores = await Autores.findAll();
+        const autores = await Autores.findAll();
+        msj("Proceso Exitoso.", 200, autores, res);
     } catch (error) {
         msj("ERROR", 500, error, res);
     }
@@ -16,15 +17,16 @@ exports.Buscar = async(req, res) => {
         msj("Datos erroneos.", 200, validacion.array(), res);
     } else {
         try {
-            const filter = '%' + req.body.nombre_libro + '%';
-            const Autores = await Autores.findAll({
+            const { nombreautor } = req.query;
+            const filter = '%' + nombreautor + '%';
+            const autores = await Autores.findAll({
                 where: {
                     nombre_autor: {
                         [Op.like]: filter,
                     },
                 }
             });
-            msj("Registro almacenado correctamente", 200, data, res);
+            msj("Proceso Exitoso.", 200, autores, res);
         } catch (error) {
             msj("ERROR", 500, error, res);
         }
@@ -36,21 +38,22 @@ exports.GuardarAutores = (req, res) => {
     if (!validacion.isEmpty()) {
         msj("Datos erroneos.", 200, validacion.array(), res);
     } else {
-        const { nombre_autor } = req.body;
-        console.log(nombre_autor);
-        if (!nombre_autor) {
-            res.send("Debe enviar los datos completos.");
+        const { nombreautor } = req.body;
+        console.log(nombreautor);
+        if (!nombreautor) {
+            msj("Datos incompletos.", 200, validacion.array(), res);
         } else {
             try {
-                const nuevoAutor = Autor.create({
-                    nombre_autor: nombre_autor
+                const nuevoAutor = Autores.create({
+                    nombre_autor: nombreautor
                 }).then((data) => {
                     msj("Registro almacenado correctamente", 200, data, res);
                 }).catch((error) => {
-                    msj("Error al guardar los datos.", 200, data, res);
+                    msj("Error al guardar los datos.", 200, error, res);
                 });
             } catch (error) {
                 msj("ERROR", 500, error, res);
+                console.log(error);
             }
         }
     }
@@ -61,27 +64,27 @@ exports.Eliminar = async(req, res) => {
     if (!validacion.isEmpty()) {
         msj("Datos erroneos.", 200, validacion.array(), res);
     } else {
-        const { idautores } = req.query;
-        if (!idautores) {
-            res.send("Debe enviar el id del autor.");
+        const { id } = req.query;
+        if (!id) {
+            msj("No se envio el codigo del autor.", 200, validacion.array(), res);
         } else {
-            const buscarautores = await Autor.findOne({
+            const buscarautores = await Autores.findOne({
                 where: {
-                    idautores: idautores,
+                    idautores: id,
                 }
             });
             if (!buscarautores) {
-                res.send("El autor no existe.");
+                msj("Autor inexistente.", 200, buscarautores, res);
             } else {
                 try {
-                    await Autor.destroy({
+                    await Autores.destroy({
                         where: {
-                            id: id,
+                            idautores: id,
                         }
                     }).then((data) => {
                         msj("Registro eliminado exitosamente", 200, data, res);
                     }).catch((error) => {
-                        msj("Registro no eliminado.", 200, data, res);
+                        msj("Registro no eliminado.", 200, error, res);
                     });
                 } catch (error) {
                     msj("ERROR", 500, error, res);
@@ -97,26 +100,26 @@ exports.Actualizar = async(req, res) => {
         msj("Datos erroneos.", 200, validacion.array(), res);
     } else {
         const { idautores } = req.query;
-        const { nombre_autor } = req.body;
-        console.log(nombre_autor);
+        const { nombreautor } = req.body;
+        console.log(nombreautor);
         if (!idautores) {
             msj("Datos incompletos.", 200, data, res);
         } else {
-            var buscarautores = await Libro.findOne({
+            var buscarautores = await Autores.findOne({
                 where: {
                     idautores: idautores,
                 }
             });
             if (!buscarautores) {
-                msj("Datos inexistentes.", 200, data, res);
+                msj("Datos inexistentes.", 200, buscarautores, res);
             } else {
                 try {
-                    if (!nombre_autor) {
-                        msj("Datos incompletos.", 200, data, res);
+                    if (!nombreautor) {
+                        msj("Datos incompletos.", 200, buscarautores, res);
                     } else {
-                        buscarautores.nombre_autor = nombre_autor;
+                        buscarautores.nombre_autor = nombreautor;
                         await buscarautores.save();
-                        msj("Datos procesados correctamente.", 200, data, res);
+                        msj("Datos procesados correctamente.", 200, buscarautores, res);
                     }
                 } catch (error) {
                     msj("ERROR", 500, error, res);

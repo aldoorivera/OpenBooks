@@ -4,7 +4,8 @@ const msj = require('../components/message');
 const { Op } = require("sequelize");
 exports.SelectAll = async(req, res) => {
     try {
-        const GeneroL = await GeneroL.findAll();
+        const generosL = await GeneroL.findAll();
+        msj("Datos procesados.", 200, generosL, res);
     } catch (error) {
         msj("ERROR", 500, error, res);
     }
@@ -18,7 +19,7 @@ exports.Insert = async(req, res) => {
         const { genero } = req.body;
         console.log(genero);
         if (!genero) {
-            res.send("Faltan datos requeridos.");
+            msj("Faltan datos requeridos.", 200, validacion.array(), res);
         } else {
             try {
                 const searchGenre = await GeneroL.findOne({
@@ -31,8 +32,8 @@ exports.Insert = async(req, res) => {
                         generos_literarios: genero,
                     }).then((data) => {
                         msj("Datos procesados correctamente.", 200, data, res);
-                    }).catch((data) => {
-                        msj("Error al procesar los datos.", 200, data, res);
+                    }).catch((error) => {
+                        msj("Error al procesar los datos.", 200, error, res);
                     });
                 } else {
                     mensaje = {
@@ -63,7 +64,7 @@ exports.Delete = async(req, res) => {
                 }
             });
             if (!searchGeneroL) {
-                res.send("El GeneroL no existe.");
+                msj("Genero inexistente.", 200, null, res);
             } else {
                 try {
                     await GeneroL.destroy({
@@ -72,8 +73,8 @@ exports.Delete = async(req, res) => {
                         }
                     }).then((data) => {
                         msj("Datos procesados correctamente.", 200, data, res);
-                    }).catch((data) => {
-                        msj("Error al procesar los datos.", 500, data, res);
+                    }).catch((error) => {
+                        msj("Error al procesar los datos.", 200, error, res);
                     });
                 } catch (error) {
                     msj("ERROR", 500, error, res);

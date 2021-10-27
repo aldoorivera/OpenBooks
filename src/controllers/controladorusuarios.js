@@ -2,9 +2,14 @@ const Usuario = require('../models/usuarioModel');
 const msj = require('../components/message');
 const { Op } = require("sequelize");
 const { validationResult } = require('express-validator');
-exports.listar = async(req, res) => {
+exports.listarTodos = async(req, res) => {
     try {
-        const Usuario = await Usuario.findAll();
+        const Usuarios = await Usuario.findAll({
+            attributes: [
+                'idusuarios', 'nombe_usuario', 'apellido_usuario', 'email'
+            ]
+        });
+        msj("Proceso exitoso.", 200, Usuarios, res);
     } catch (error) {
         msj("ERROR", 500, error, res);
     }
@@ -47,7 +52,7 @@ exports.EliminarUsuario = async(req, res) => {
     } else {
         const { id_usuario } = req.query;
         if (!id_usuario) {
-            res.send("Debe enviar el id del usuario.");
+            msj("Debe enviar datos.", 200, validacion.array(), res);
         } else {
             const buscarUsuario = await Usuario.findOne({
                 where: {
@@ -55,7 +60,7 @@ exports.EliminarUsuario = async(req, res) => {
                 }
             });
             if (!buscarUsuario) {
-                res.send("El libro no existe.");
+                msj("El usuario no existe o se enviaron datos incorrectos.", 200, null, res);
             } else {
                 try {
                     await Usuario.destroy({
@@ -81,10 +86,10 @@ exports.ActualizarUsuario = async(req, res) => {
         msj("Datos erroneos.", 200, validacion.array(), res);
     } else {
         const { id_usuario } = req.query;
-        const { password, nombre_usuario, apellido_usuario, email } = req.body;
-        console.log(password, nombre_usuario, apellido_usuario, email);
-        if (!id) {
-            msj("Datos incompletos.", 200, data, res);
+        const { nombre_usuario, apellido_usuario, email } = req.body;
+        console.log(nombre_usuario, apellido_usuario, email);
+        if (!id_usuario) {
+            msj("Datos incompletos.", 200, validacion.array(), res);
         } else {
             var buscarUsuario = await Usuario.findOne({
                 where: {
@@ -92,23 +97,22 @@ exports.ActualizarUsuario = async(req, res) => {
                 }
             });
             if (!buscarUsuario) {
-                msj("Datos inexistentes.", 200, data, res);
+                msj("Datos inexistentes.", 200, buscarUsuario, res);
             } else {
                 try {
-                    if (!password || !nombre_usuario || !apellido_usuario || !email) {
-                        msj("Datos incompletos.", 200, data, res);
+                    if (!nombre_usuario || !apellido_usuario || !email) {
+                        msj("Datos incompletos.", 200, null, res);
                     } else {
                         buscarUsuario.idusuarios = id_usuario;
-                        buscarUsuario.password = password;
                         buscarUsuario.nombe_usuario = nombre_usuario;
                         buscarUsuario.apellido_usuario = apellido_usuario;
                         buscarUsuario.email = email;
                         await buscarUsuario.save();
-                        msj("Datos procesados correctamente.", 200, data, res);
+                        msj("Datos procesados correctamente.", 200, buscarUsuario, res);
                     }
-                    msj("Registro almacenado correctamente", 200, data, res);
                 } catch (error) {
                     msj("ERROR", 500, error, res);
+                    console.log(error);
                 }
             }
         }

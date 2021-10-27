@@ -4,7 +4,7 @@ const passportController = require('../../controllers/passportController');
 const router = Router();
 const libroController = require('../../controllers/librosController');
 
-router.get('/listar', passportController.validarAutenticado, libroController.SelectAll);
+router.get('/lista', passportController.validarAutenticado, libroController.SelectAll);
 router.post('/buscar', passportController.validarAutenticado, libroController.Search);
 router.post('/guardar', passportController.validarAutenticado,
     body('nombre_libro').isLength({ min: 2 }).withMessage('Longitud minima de caracteres: 2.'),

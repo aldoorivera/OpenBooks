@@ -28,7 +28,7 @@ const libros = db.define(
             type: sequelize.BLOB,
             allowNull: false,
         },
-        id_autores: {
+        idautores: {
             type: sequelize.INTEGER,
             allowNull: false,
         },

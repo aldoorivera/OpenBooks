@@ -12,7 +12,10 @@ exports.Login = async(req, res, next) => {
         const { usuario, password } = req.body;
         const BuscarUsuario = await ModeloUsuario.findOne({
             where: {
-                idusuarios: usuario
+                [Op.or]: [
+                    { email: usuario },
+                    { idusuarios: usuario }
+                ]
             }
         });
         if (!BuscarUsuario) {
@@ -40,6 +43,7 @@ exports.Login = async(req, res, next) => {
 exports.ValidarToken = async(req, res) => {
     const { data } = req.body;
     msj("Token invalido", 200, data, res);
+    console.log(data);
 };
 exports.enviarToken = async(req, res) => {
     const { data } = req.body;
