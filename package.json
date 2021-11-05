@@ -1,32 +1,33 @@
 {
-  "dependencies": {
-    "bcrypt": "^5.0.1",
-    "express": "^4.17.1",
-    "express-validator": "^6.13.0",
-    "moment": "^2.29.1",
-    "morgan": "^1.10.0",
-    "mysql2": "^2.3.2",
-    "nodemon": "^2.0.13",
-    "passport": "^0.5.0",
-    "passport-jwt": "^4.0.0",
-    "sequelize": "^6.7.0"
-  },
-  "name": "openbooks",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "dev": "nodemon src/index"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aldoorivera/OpenBooks.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/aldoorivera/OpenBooks/issues"
-  },
-  "homepage": "https://github.com/aldoorivera/OpenBooks#readme",
-  "description": ""
+    "dependencies": {
+        "bcrypt": "^5.0.1",
+        "express": "^4.17.1",
+        "express-validator": "^6.13.0",
+        "moment": "^2.29.1",
+        "morgan": "^1.10.0",
+        "mysql2": "^2.3.2",
+        "nodemon": "^2.0.13",
+        "passport": "^0.5.0",
+        "passport-jwt": "^4.0.0",
+        "sequelize": "^6.7.0"
+    },
+    "name": "openbooks",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "dev": "nodemon src/index",
+        "start": "node src/index"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/aldoorivera/OpenBooks.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/aldoorivera/OpenBooks/issues"
+    },
+    "homepage": "https://github.com/aldoorivera/OpenBooks#readme",
+    "description": ""
 }
