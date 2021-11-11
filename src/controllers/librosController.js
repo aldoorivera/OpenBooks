@@ -1,13 +1,19 @@
 const Libro = require('../models/librosModel');
+const Autores = require('../models/autoresModel');
+const Generos = require('../models/generosModel');
 const msj = require('../components/message');
 const { Op } = require("sequelize");
 const { validationResult } = require('express-validator');
+
 exports.SelectAll = async(req, res) => {
     try {
-        const Libros = await Libro.findAll();
+        const Libros = await Libro.findAll({
+            include: [Autores]
+        });
         msj("Petición procesada correctamente", 200, Libros, res);
     } catch (error) {
         msj("ERROR", 500, error, res);
+        console.log(error);
     }
 
 };
@@ -137,4 +143,18 @@ exports.Update = async(req, res) => {
             }
         }
     }
+};
+exports.SelectOne = async(req, res) => {
+    const { id } = req.body;
+    try {
+        const Libros = await Libro.findOne({
+            include: [Autores],
+            where: { idlibros: id }
+        });
+        msj("Petición procesada correctamente", 200, Libros, res);
+    } catch (error) {
+        msj("ERROR", 500, error, res);
+        console.log(error);
+    }
+
 };

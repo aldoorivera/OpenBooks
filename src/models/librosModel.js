@@ -1,4 +1,7 @@
 const sequelize = require('sequelize');
+const autor = require('../models/autoresModel');
+const categorias = require('../models/generosModel');
+const union = require('../models/generos_librosModel');
 const db = require('../configs/db');
 const libros = db.define(
     "libros", {
@@ -41,4 +44,12 @@ const libros = db.define(
         timestamps: false,
     }
 );
+//relacion autor-libro
+autor.hasOne(libros, { foreignKey: 'idautores' });
+libros.belongsTo(autor, { foreignKey: 'idautores' });
+
+//relacion categoria-libro
+//libros.belongsToMany(categorias, { through: union, foreignKey: 'idlibros' });
+//categorias.belongsToMany(libros, { through: union, foreignKey: 'idgl' });
+
 module.exports = libros;

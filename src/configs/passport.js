@@ -4,7 +4,7 @@ const strategyJWT = require('passport-jwt').Strategy;
 const extractJWT = require('passport-jwt').ExtractJwt;
 const jWT = require('jsonwebtoken');
 const moment = require('moment');
-const duration = moment.duration(5, "m").asSeconds();
+const duration = moment.duration(500, "m").asSeconds();
 const passcode = 'SecureKey';
 exports.getToken = (data) => {
     return jWT.sign(data, passcode, { expiresIn: duration });

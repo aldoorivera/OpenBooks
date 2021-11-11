@@ -12,4 +12,5 @@ router.post('/guardar', passportController.validarAutenticado,
     libroController.Insert);
 router.delete('/eliminar', passportController.validarAutenticado, libroController.Delete);
 router.put('/actualizar', passportController.validarAutenticado, libroController.Update);
+router.post('/preview', passportController.validarAutenticado, libroController.SelectOne);
 module.exports = router;

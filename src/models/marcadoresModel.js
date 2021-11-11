@@ -1,4 +1,6 @@
 const sequelize = require('sequelize');
+const usuario = require('../models/usuarioModel');
+const libros = require('../models/librosModel');
 const db = require('../configs/db');
 const Marcadores = db.define(
     "marcadores", {
@@ -15,4 +17,6 @@ const Marcadores = db.define(
         timestamps: false,
     }
 );
+libros.belongsToMany(usuario, { through: Marcadores, foreignKey: 'idlibros' });
+usuario.belongsToMany(libros, { through: Marcadores, foreignKey: 'idusuarios' });
 module.exports = Marcadores;

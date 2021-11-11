@@ -15,3 +15,4 @@ const Libros_categorias = db.define(
         timestamps: false,
     }
 );
+module.exports = Libros_categorias;
